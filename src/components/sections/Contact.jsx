@@ -34,9 +34,6 @@ export default function Contact() {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    
-
-    // 💡 ວິທີດຶງຂໍ້ມູນທັງໝົດໃນຟອມອອກມາເປັນ Object
     const formData = new FormData(e.target);
     const data = Object.fromEntries(formData.entries());
 
@@ -59,12 +56,11 @@ export default function Contact() {
     }).catch(() => {
       setStatus('error')
     })
-    // 💡 ປ່ຽນມາເປັນ Log ຂໍ້ມູນອອກມາເບິ່ງຢູ່ໜ້າ Console
+    
     console.log("Form Submitted Data:", data);
 
     alert("ສົ່ງຂໍ້ຄວາມສຳເລັດແລ້ວ! ສາມາດກວດເບິ່ງຂໍ້ມູນຢູ່ Console ໄດ້ເລີຍ.");
     
-    // ລ້າງຄ່າຂໍ້ມູນໃນຟອມຫຼັງຈາກກົດສົ່ງ
     e.target.reset(); 
   };
 
@@ -119,7 +115,7 @@ export default function Contact() {
                   <label className="text-xs font-medium text-slate-300">Full Name *</label>
                   <input
                     type="text"
-                    name="fullName" // 💡 ເພີ່ມ name ເພື່ອໃຫ້ດຶງຄ່າໄປເປັນ Key ໃນ Object
+                    name="fullName" 
                     required
                     placeholder="Jane Doe"
                     className="w-full bg-[#0b0917] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
@@ -129,7 +125,7 @@ export default function Contact() {
                   <label className="text-xs font-medium text-slate-300">Email *</label>
                   <input
                     type="email"
-                    name="email" // 💡 ເພີ່ມ name
+                    name="email" 
                     required
                     placeholder="jane@example.com"
                     className="w-full bg-[#0b0917] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
@@ -141,7 +137,7 @@ export default function Contact() {
                 <label className="text-xs font-medium text-slate-300">Subject *</label>
                 <input
                   type="text"
-                  name="subject" // 💡 ເພີ່ມ name
+                  name="subject" 
                   required
                   placeholder="Project Inquiry"
                   className="w-full bg-[#0b0917] border border-white/10 rounded-lg px-4 py-3 text-sm text-white focus:outline-none focus:border-purple-500 transition-colors"
@@ -151,7 +147,7 @@ export default function Contact() {
               <div className="space-y-2">
                 <label className="text-xs font-medium text-slate-300">Message *</label>
                 <textarea
-                  name="message" // 💡 ເພີ່ມ name
+                  name="message" 
                   required
                   rows={4}
                   placeholder="Tell me about your project or ideas..."
