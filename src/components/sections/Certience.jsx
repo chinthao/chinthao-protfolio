@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 
+
+const BASE = import.meta.env.BASE_URL;   // ← ຕ້ອງເພີ່ມບັນທັດນີ້
+
 const certifications = [
   {
     id: 1,
