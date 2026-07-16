@@ -2,8 +2,6 @@ import React, { useState } from "react";
 
 
 const BASE = import.meta.env.BASE_URL;   // ← ຕ້ອງເພີ່ມບັນທັດນີ້
-const [selectedCert, setSelectedCert] = useState(null);
-const [imgErrors, setImgErrors] = useState({});
 
 const certifications = [
   {
@@ -40,6 +38,7 @@ const certifications = [
 
 export default function Certificates() {
   const [selectedCert, setSelectedCert] = useState(null);
+  const [imgErrors, setImgErrors] = useState({});
 
   return (
     <section id="certificates" className="bg-[#0e0a1f] py-24 px-6 md:px-16">
