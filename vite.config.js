@@ -8,5 +8,5 @@ export default defineConfig({
     react(),
      tailwindcss(),
   ],
-  base: '/chinthao-protfolio/'
+  base: '/chinthao-protfolio/' //ເພີ່ມ base ເພື່ອການກຳນົດເສັ້ນທາງໃນເວັບໄຊ ຂອງໂຄງການຂອງເຈົ້າ
 })

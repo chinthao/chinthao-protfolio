@@ -1,123 +1,141 @@
-import { Award, Briefcase, Code, Download, FlaskConical, Phone, User, Menu, X } from 'lucide-react'
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
-  // 1. ເພີ່ມ State ສໍາລັບເປີດ/ປິດ ເມນູມືຖື
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState("");
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
 
-  const link = [
-    {name: "About", href: "#about", icon: <User size={15}/>},
-    {name: "Skills", href: "#skills", icon: <FlaskConical size={15}/>}, // ແປງຊື່ຈາກ kills ເປັນ Skills
-    {name: "Experience", href: "#experience", icon: <Briefcase size={15}/>}, // ແປງຊື່ໃຫ້ຖືກ
-    {name: "Certificates", href: "#certificates", icon: <Award size={15}/>}, // ແປງຊື່ໃຫ້ຖືກ
-    {name: "Contact", href: "#contact", icon: <Phone size={15}/>},
-  ]
+  const menuItems = [
+    { id: "about", label: "About" },
+    { id: "skills", label: "Skills" },
+    { id: "experience", label: "Experience" },
+    { id: "certificates", label: "Certificates" },
+    { id: "contact", label: "Contact" },
+  ];
 
-  // 2. ເພີ່ມ function Scrollspy ກວດຈັບຕໍາແໜ່ງ Section ເມື່ອເລື່ອນໜ້າຈໍ
+  
   useEffect(() => {
-    const sections = link.map((l) => l.href.replace("#", ""));
-    const observers = sections.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const obs = new IntersectionObserver(
-        ([entry]) => { 
-          if (entry.isIntersecting) {
-            // ແປງ id ໃຫ້ກັບມາເປັນຊື່ເມນູ (ເຊັ່ນ: 'about' -> 'About')
-            const currentLink = link.find(l => l.href === `#${id}`);
-            if (currentLink) setActive(currentLink.name);
-          } 
-        },
-        { threshold: 0.5 } // ເມື່ອ Section ປະກົດຂຶ້ນມາ 50%
-      );
-      obs.observe(el);
-      return obs;
+    const handleIntersect = (entries) => {
+      entries.forEach((entry) => {
+       
+        if (entry.isIntersecting) {
+          setActiveSection(entry.target.id);
+        }
+      });
+    };
+
+    const observer = new IntersectionObserver(handleIntersect, {
+      rootMargin: "-20% 0px -40% 0px", 
+      threshold: 0.2,
     });
-    return () => observers.forEach((o) => o?.disconnect());
+
+    menuItems.forEach((item) => {
+      const element = document.getElementById(item.id);
+      if (element) observer.observe(element);
+    });
+
+    return () => observer.disconnect(); 
   }, []);
 
+  const scrollToSection = (id) => {
+    const element = document.getElementById(id);
+    if (element) {
+      
+      const offset = 80; 
+      const bodyRect = document.body.getBoundingClientRect().top;
+      const elementRect = element.getBoundingClientRect().top;
+      const elementPosition = elementRect - bodyRect;
+      const offsetPosition = elementPosition - offset;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: "smooth"
+      });
+
+      setIsOpen(false);
+    }
+  };
+
   return (
-    <nav className={`sticky top-0 z-50 w-full transition-all duration-300 border-b border-white/10 bg-purple-600`}>
-  
-      <div className="max-w-5xl mx-auto flex items-center justify-between h-[68px] px-4 md:h-[80px]">
-        <a href="#" className="flex items-center gap-2.5 no-underline">
-          <div>
-            <Code size={24} color="white"/>
-          </div>
-          <span className='text-white text-[15px] font-medium tracking-wide'>
-            Chin<span className="text-purple-400">.dev</span>
-          </span>
-        </a>
-
-        {/* Desktop Navigation */}
-        <ul className="hidden md:flex items-center gap-1 list-none m-0 p-0">
-          {link.map(({name, icon, href})=>(
-            <li key={name} className="">
-              <a href={href} className={`relative flex items-center gap-1 px-3.5 py-3 
-               text-sm rounded-lg no-underline transition-all duration-300
-               ${active === name ? 'text-white' : 'text-white/50 hover:text-white'} 
-              `}
-              onClick={() => setActive(name)}
-              >
-                {icon}{name}
-
-                {active === name && 
-                    <span className='absolute bottom-1 left-1/2 -translate-x-1/2  
-                                    w-10 h-0.5 bg-purple-400 rounded-full'/>
-                }
-              </a>
-            </li>
-          ))}
-        </ul>
-
-        {/* Resume Button (Desktop) */}
-        <div className="hidden md:flex items-center gap-1">
-          <button className='flex items-center gap-1 px-4 py-2 rounded-lg border
-           border-white/50 bg-transparent hover:bg-white/10 transition-all
-           duration-200 cursor-pointer text-purple-200'>
-            <Download size={15} /> Resume
-          </button>
+    <nav className="fixed top-0 left-0 w-full bg-[#0b0917]/80 backdrop-blur-md z-50 border-b border-white/5 px-6 md:px-16 py-4 transition-all duration-300">
+      <div className="max-w-6xl mx-auto flex items-center justify-between">
+        
+        <div 
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+          className="text-white text-xl font-bold cursor-pointer tracking-tight select-none hover:opacity-80 transition-opacity"
+        >
+          &lt;<span className="text-purple-400">Chin</span>.dev /&gt;
         </div>
 
-        {/* 3. ເພີ່ມປຸ່ມ Hamburger Menu ສໍາລັບມືຖື */}
+        <div className="hidden md:flex items-center gap-8">
+          {menuItems.map((item) => {
+            const isActive = activeSection === item.id;
+            return (
+              <button
+                key={item.id}
+                onClick={() => scrollToSection(item.id)}
+                className={`text-sm font-medium transition-all duration-300 relative py-1 cursor-pointer group
+                  ${isActive ? "text-purple-400 font-semibold" : "text-slate-400 hover:text-white"}`}
+              >
+                {item.label}
+                <span 
+                  className={`absolute bottom-0 left-0 h-[2px] bg-purple-500 transition-all duration-300
+                    ${isActive ? "w-full" : "w-0 group-hover:w-full"}`}
+                />
+              </button>
+            );
+          })}
+        </div>
+
+        <div className="hidden md:block">
+          <a
+            href="#resume" // 💡 ສາມາດປ່ຽນເປັນລິ້ງ Google Drive ທີ່ຝາກໄຟລ໌ PDF Resume ຂອງທ່ານໄດ້
+            className="border border-purple-500/50 text-white text-sm font-medium px-5 py-2 rounded-xl hover:bg-purple-500/10 transition-all flex items-center gap-2 no-underline cursor-pointer"
+          >
+            <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            Resume
+          </a>
+        </div>
+
         <button 
-          className="md:hidden text-white p-1 bg-transparent border-none cursor-pointer"
-          onClick={() => setMenuOpen(!menuOpen)}
+          onClick={() => setIsOpen(!isOpen)}
+          className="md:hidden text-white focus:outline-none cursor-pointer p-1"
           aria-label="Toggle menu"
         >
-          {menuOpen ? <X size={22} /> : <Menu size={22} />}
+          <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            {isOpen ? (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+            ) : (
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h16" />
+            )}
+          </svg>
         </button>
-
       </div>
 
-      {/* 4. ເພີ່ມໜ້າຈໍເມນູສະແດງຜົນໃນມືຖື (Mobile Drawer) */}
-      {menuOpen && (
-        <div className="md:hidden border-t border-white/10 bg-purple-600 px-4 py-3 flex flex-col gap-1.5 animate-fadeIn">
-          {link.map(({name, icon, href}) => (
-            <a
-              key={name}
-              href={href}
-              onClick={() => { 
-                setActive(name); 
-                setMenuOpen(false); // ກົດແລ້ວໃຫ້ປິດເມນູມືຖືທັນທີ
-              }}
-              className={`flex items-center gap-2 px-4 py-3 text-sm rounded-lg no-underline transition-all duration-200
-                ${active === name ? 'bg-white/10 text-white font-medium' : 'text-white/70 hover:bg-white/5 hover:text-white'}
-              `}
+      {isOpen && (
+        <div className="md:hidden absolute top-full left-0 w-full bg-[#0b0917] border-b border-white/5 py-5 px-6 flex flex-col gap-4 shadow-2xl animate-fadeIn">
+          {menuItems.map((item) => (
+            <button 
+              key={item.id}
+              onClick={() => scrollToSection(item.id)} 
+              className={`text-left text-sm py-2 transition-colors cursor-pointer
+                ${activeSection === item.id ? "text-purple-400 font-bold" : "text-slate-300 hover:text-white"}`}
             >
-              {icon}
-              {name}
-            </a>
+              {item.label}
+            </button>
           ))}
-          
-          {/* ປຸ່ມ Resume ໃນມືຖື */}
-          <button className='mt-2 flex items-center justify-center gap-1 w-full px-4 py-2.5 rounded-lg border
-           border-white/50 bg-transparent hover:bg-white/10 transition-all duration-200 cursor-pointer text-purple-200 text-sm'>
-            <Download size={15} /> Resume
-          </button>
+
+          <a 
+            href="#resume" 
+            className="border border-purple-500/50 text-center text-white text-sm py-2.5 rounded-xl hover:bg-purple-500/10 transition-all no-underline mt-2 cursor-pointer"
+          >
+            Resume
+          </a>
         </div>
       )}
-
     </nav>
-  )
+  );
 }

@@ -1,95 +1,78 @@
-import { useState } from "react";
+import React from "react";
 
-const experiences = [
+const volunteerActivities = [
   {
     id: 1,
-    title: "CIB on the Mobile",
-    description:
-      "Take your client onboard seamlessly by our amazing tool of digital onboard process.",
-    icon: "🏅",
-    gradient: "from-violet-600 to-indigo-600",
+    title: "The 9th Helping Hands Project in Phin District",
+    location: "Savannakhet Province (December 2023)",
+    description: "Actively participated in organizing, preparing logistics, and executing a field trip to donate study materials and sports gear to school children in remote areas of Savannakhet. Awarded a formal volunteer appreciation certificate by the Lao-American Institute.",
+    badge: "Community Donation",
+    icon: "🎒",
+    gradient: "from-emerald-600 to-teal-600",
+    svgGraphic: (
+      <svg viewBox="0 0 100 100" className="w-16 h-16 text-emerald-400">
+        <path d="M50 20 L25 50 H40 V80 H60 V50 H75 Z" fill="currentColor" />
+        <rect x="44" y="60" width="12" height="12" rx="1" fill="#0b0917" />
+      </svg>
+    )
   },
   {
     id: 2,
-    title: "CIB on the Mobile",
-    description:
-      "Take your client onboard seamlessly by our amazing tool of digital onboard process.",
-    icon: "💡",
-    gradient: "from-orange-400 to-pink-500",
-    // 💡 ເອົາ defaultActive ອອກແລ້ວ ເພື່ອບໍ່ໃຫ້ມັນຂຶ້ນຂອບຄ້າງໄວ້
-  },
-  {
-    id: 3,
-    title: "CIB on the Mobile",
-    description:
-      "Take your client onboard seamlessly by our amazing tool of digital onboard process.",
-    icon: "☕",
-    gradient: "from-purple-700 to-violet-500",
-  },
-  {
-    id: 4,
-    title: "CIB on the Mobile",
-    description:
-      "Take your client onboard seamlessly by our amazing tool of digital onboard process.",
-    icon: "✏️",
-    gradient: "from-indigo-700 to-purple-700",
-  },
+    title: "That Luang Festival Cleanliness & Environmental Awareness Initiative",
+    location: "Vientiane Capital (November 2023)",
+    description: "Volunteered alongside local community cleanup campaigns during the sacred That Luang Festival under the theme 'Together for our Environmental Health'. Managed waste classifications, maintained public grounds hygiene, and promoted environmental values among festival-goers.",
+    badge: "Environmental Volunteer",
+    icon: "🧹",
+    gradient: "from-blue-600 to-indigo-600",
+    svgGraphic: (
+      <svg viewBox="0 0 100 100" className="w-16 h-16 text-blue-400">
+        <circle cx="50" cy="50" r="30" fill="none" stroke="currentColor" strokeWidth="4" />
+        <path d="M40 50 l7 7 l15 -15" fill="none" stroke="currentColor" strokeWidth="6" strokeLinecap="round" />
+      </svg>
+    )
+  }
 ];
-
-function ExperienceCard({ title, description, icon, gradient, defaultActive }) {
-  const [hovered, setHovered] = useState(false);
-  const active = defaultActive || hovered;
-
-  return (
-    <div
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className={`
-        relative flex items-start gap-5 p-6 rounded-xl border transition-all duration-300 cursor-pointer overflow-hidden
-        
-        /* 💡 1. ເອົາເມົາໄປຈີ້ແລ້ວໃຫ້ກາດເດັ້ນຂຶ້ນມາດ້ານເທິງໜ້ອຍໜຶ່ງ */
-        hover:-translate-y-1
-        
-        /* 💡 2. ສະແດງຂອບສີມ່ວງສະຫວ່າງ ແລະ ເງົາສະເພາະຕອນ Hover ເທົ່ານັ້ນ */
-        ${active
-          ? "border-purple-500 bg-[#1a1040] shadow-[0_10px_20px_rgba(147,51,234,0.15)]"
-          : "border-purple-900/60 bg-[#120d35]/60 shadow-md"
-        }
-      `}
-    >
-      {/* Corner dots */}
-      <span className="absolute top-3 left-3 w-1.5 h-1.5 rounded-full bg-purple-500/40" />
-      <span className="absolute bottom-3 left-3 w-1.5 h-1.5 rounded-full bg-purple-500/40" />
-
-      {/* Icon */}
-      <div
-        className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${gradient} flex items-center justify-center text-2xl flex-shrink-0 shadow-md`}
-      >
-        {icon}
-      </div>
-
-      {/* Text */}
-      <div className="flex-1">
-        <h3 className="text-white text-lg font-bold mb-1">{title}</h3>
-        <p className="text-slate-400 text-sm leading-relaxed mb-3">{description}</p>
-        <button className="border border-white/30 text-white text-[10px] font-semibold tracking-[0.12em] uppercase px-4 py-2 hover:bg-white/10 transition-colors rounded-md">
-          Learn More
-        </button>
-      </div>
-    </div>
-  );
-}
 
 export default function Experience() {
   return (
-    <section id="experience" className="bg-[#0e0a1f] py-20 px-6 md:px-16">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-white text-4xl font-bold mb-10 tracking-tight">
-          Work Experience
+    <section id="experience" className="bg-[#0b0917] py-24 px-6 md:px-16 relative overflow-hidden">
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[500px] h-[500px] bg-indigo-900/5 rounded-full blur-3xl pointer-events-none" />
+      
+      <div className="max-w-6xl mx-auto relative z-10">
+        <span className="text-purple-400 text-xs font-bold tracking-[0.2em] uppercase block mb-2">
+          GIVING BACK TO THE COMMUNITY
+        </span>
+        <h2 className="text-white text-4xl font-bold mb-4 tracking-tight">
+          Volunteer Work & Community Service
         </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6"> 
-          {experiences.map((exp) => (
-            <ExperienceCard key={exp.id} {...exp} />
+        <p className="text-slate-400 text-base max-w-2xl mb-12 font-light">
+          Extracurricular social initiatives that helped me build teamwork, leadership qualities, civic duties, and proactive problem-solving abilities.
+        </p>
+
+        <div className="space-y-6">
+          {volunteerActivities.map((act) => (
+            <div 
+              key={act.id}
+              className="flex flex-col md:flex-row gap-6 p-6 md:p-8 bg-[#120d35]/30 border border-purple-900/40 rounded-3xl hover:border-purple-500/35 transition-all overflow-hidden items-center"
+            >
+              {/* Activity Vector Art Graphics */}
+              <div className="w-24 h-24 bg-[#0e0a1f] rounded-2xl flex items-center justify-center flex-shrink-0 border border-purple-500/10 relative overflow-hidden">
+                {act.svgGraphic}
+                <div className={`absolute bottom-1 right-1 w-6 h-6 rounded-lg bg-gradient-to-br ${act.gradient} flex items-center justify-center text-xs shadow-md`}>
+                  {act.icon}
+                </div>
+              </div>
+              
+              {/* Activity Content */}
+              <div className="space-y-3 flex-1">
+                <div className="flex flex-wrap items-center gap-3">
+                  <span className="bg-purple-900/40 text-purple-300 text-[10px] font-bold px-2.5 py-1 rounded-full border border-purple-500/20">{act.badge}</span>
+                  <span className="text-slate-500 text-xs font-semibold">{act.location}</span>
+                </div>
+                <h3 className="text-white text-lg md:text-xl font-bold">{act.title}</h3>
+                <p className="text-slate-300 text-sm leading-relaxed font-light">{act.description}</p>
+              </div>
+            </div>
           ))}
         </div>
       </div>
