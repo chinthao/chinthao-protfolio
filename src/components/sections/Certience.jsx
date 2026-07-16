@@ -2,6 +2,8 @@ import React, { useState } from "react";
 
 
 const BASE = import.meta.env.BASE_URL;   // ← ຕ້ອງເພີ່ມບັນທັດນີ້
+const [selectedCert, setSelectedCert] = useState(null);
+const [imgErrors, setImgErrors] = useState({});
 
 const certifications = [
   {
@@ -69,12 +71,24 @@ export default function Certificates() {
               </div>
 
               {/* Vector Certificate Graphic Representation */}
-              <div className="h-32 bg-[#0e0a1f] rounded-xl flex items-center justify-center relative overflow-hidden border border-purple-500/10">
-                <img
-                  src={cert.image}
-                  alt={cert.title}
-                  className="w-full h-full object-cover"
-                />
+              <div className="h-32 bg-[#0e0a1f] rounded-xl flex items-center justify-center relative overflow-hidden border border-purple-500/10 p-3">
+                {imgErrors[cert.id] ? (
+                  <div className="w-full h-full border border-dashed border-purple-500/20 rounded-lg flex flex-col items-center justify-center p-2 relative bg-slate-900/60">
+                    <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-yellow-500/30 border border-yellow-500/60" />
+                    <svg viewBox="0 0 24 24" className="w-8 h-8 text-purple-400/50 mb-1" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <path d="M12 15l-2 5l2 -2l2 2z" />
+                      <circle cx="12" cy="10" r="4" />
+                    </svg>
+                    <span className="text-[8px] text-slate-500 uppercase font-mono tracking-widest">VERIFIED DIPLOMA</span>
+                  </div>
+                ) : (
+                  <img
+                    src={cert.image}
+                    alt={cert.title}
+                    className="w-full h-full object-cover rounded-lg"
+                    onError={() => setImgErrors((prev) => ({ ...prev, [cert.id]: true }))}
+                  />
+                )}
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-xs text-white font-medium">
                   Click to View Details 🔎
                 </div>
@@ -98,28 +112,21 @@ export default function Certificates() {
             <h3 className="text-white text-xl font-bold pr-10">{selectedCert.title}</h3>
             
             {/* Interactive Vector Diploma Design */}
-            <div className="w-full bg-[#0e0a1f] rounded-2xl flex flex-col items-center justify-center p-8 border border-yellow-500/20 relative shadow-inner">
-              <div className="absolute inset-4 border border-dashed border-yellow-500/20 pointer-events-none rounded-xl" />
-              {/* Gold Seal */}
-              <div className="absolute top-8 right-8 w-12 h-12 rounded-full bg-gradient-to-r from-yellow-500 to-amber-600 flex items-center justify-center shadow-lg border border-yellow-300/40">
-                <span className="text-xs">🏆</span>
-              </div>
-              
-              <span className="text-yellow-500/60 font-mono text-[10px] tracking-[0.3em] uppercase mb-4">CERTIFICATE OF RECOGNITION</span>
-              <p className="text-white/40 text-xs uppercase mb-1">PROUDLY PRESENTED TO</p>
-              <h4 className="text-white text-2xl font-serif tracking-wide mb-3 border-b border-purple-500/30 pb-1 px-8">Chinthao Vaneng</h4>
-              <p className="text-slate-400 text-xs text-center max-w-md leading-relaxed px-4 mb-4">
-                For outstanding, active and meaningful participation in <span className="text-purple-400 font-medium">"{selectedCert.title}"</span>. Verified and logged under professional community standards.
-              </p>
-              
-              <div className="w-full flex justify-between items-end mt-4 px-6 pt-4 border-t border-white/5 text-[10px] text-slate-500">
+            <div className="w-full bg-[#0e0a1f] rounded-2xl overflow-hidden border border-yellow-500/20 relative shadow-inner">
+              <img
+                src={selectedCert.image}
+                alt={selectedCert.title}
+                className="w-full h-auto max-h-[60vh] object-contain"
+              />
+
+              <div className="w-full flex justify-between items-end p-4 border-t border-white/5 text-[10px] text-slate-500 bg-[#120d35]">
                 <div className="text-left">
                   <p className="mb-0">ISSUER</p>
                   <p className="text-slate-300 font-semibold mb-0">{selectedCert.issuer}</p>
                 </div>
                 <div className="text-right">
                   <p className="mb-0">DATE</p>
-                  <p className="text-slate-300 font-semibold mb-0">{selectedCert.date}</p>
+                 <p className="text-slate-300 font-semibold mb-0">{selectedCert.date}</p>
                 </div>
               </div>
             </div>
