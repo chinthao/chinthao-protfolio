@@ -19,7 +19,7 @@ export default function About() {
 
           <div className="relative w-64 h-64 md:w-72 md:h-72 rounded-2xl overflow-hidden border border-white/10 bg-[#120d35]">
             <img 
-              src="/images/PM.jpeg" 
+              src="images/PM.jpeg" 
               alt="Chinthao" 
               className="w-full h-full object-cover object-center relative z-10"
               onError={(e) => {

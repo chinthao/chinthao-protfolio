@@ -9,7 +9,7 @@ const certifications = [
     icon: "🎒",
     color: "from-emerald-600 to-teal-600",
     themeClass: "border-emerald-500/40",
-    image: "/images/PM1.jpeg"
+    image: "images/PM1.jpeg"
   },
   {
     id: 2,
@@ -19,7 +19,7 @@ const certifications = [
     icon: "🧹",
     color: "from-blue-600 to-indigo-600",
     themeClass: "border-blue-500/40",
-    image: "/images/PM2.jpeg"
+    image: "images/PM2.jpeg"
   },
   {
     id: 3,
@@ -29,7 +29,7 @@ const certifications = [
     icon: "🎓",
     color: "from-purple-600 to-pink-600",
     themeClass: "border-purple-500/40",
-    image: "/images/PM3.jpeg"
+    image: "images/PM3.jpeg"
   }
 ];
 
