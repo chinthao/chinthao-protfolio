@@ -49,7 +49,7 @@ export default function About() {
           </div>
 
           <p className="text-slate-300 text-base leading-relaxed">
-            Hi! I&apos;m <span className="text-purple-400 font-medium">Chinthao Vangneng</span>, an aspiring software developer completing my Sophomore year and transitioning to Year 3 at the <span className="text-purple-300 font-semibold">Soutsaka Institute of Technology (SIT)</span>, majoring in Programming.
+            Hi! I&apos;m <span className="text-purple-400 font-medium">Chinthao Vaneng</span>, an aspiring software developer completing my Sophomore year and transitioning to Year 3 at the <span className="text-purple-300 font-semibold">Soutsaka Institute of Technology (SIT)</span>, majoring in Programming.
           </p>
           <p className="text-slate-400 text-base leading-relaxed">
             Even though I have not worked in a professional corporate environment yet, I am highly driven and proactive. I consistently hone my engineering skills by tackling complex academic projects and engaging in societal development through volunteering.

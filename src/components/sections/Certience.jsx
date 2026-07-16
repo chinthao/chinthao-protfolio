@@ -29,6 +29,7 @@ const certifications = [
     icon: "🎓",
     color: "from-purple-600 to-pink-600",
     themeClass: "border-purple-500/40",
+    image: "images/PM3.jpeg"
   }
 ];
 
