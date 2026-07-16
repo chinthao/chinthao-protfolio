@@ -66,16 +66,12 @@ export default function Certificates() {
               </div>
 
               {/* Vector Certificate Graphic Representation */}
-              <div className="h-32 bg-[#0e0a1f] rounded-xl flex items-center justify-center relative overflow-hidden border border-purple-500/10 p-3">
-                <div className="w-full h-full border border-dashed border-purple-500/20 rounded-lg flex flex-col items-center justify-center p-2 relative bg-slate-900/60">
-                  {/* Decorative seal */}
-                  <div className="absolute top-2 right-2 w-4 h-4 rounded-full bg-yellow-500/30 border border-yellow-500/60" />
-                  <svg viewBox="0 0 24 24" className="w-8 h-8 text-purple-400/50 mb-1" fill="none" stroke="currentColor" strokeWidth="1.5">
-                    <path d="M12 15l-2 5l2 -2l2 2z" />
-                    <circle cx="12" cy="10" r="4" />
-                  </svg>
-                  <span className="text-[8px] text-slate-500 uppercase font-mono tracking-widest">VERIFIED DIPLOMA</span>
-                </div>
+              <div className="h-32 bg-[#0e0a1f] rounded-xl flex items-center justify-center relative overflow-hidden border border-purple-500/10">
+                <img
+                  src={cert.image}
+                  alt={cert.title}
+                  className="w-full h-full object-cover"
+                />
                 <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-opacity text-xs text-white font-medium">
                   Click to View Details 🔎
                 </div>
